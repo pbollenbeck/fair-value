@@ -1,0 +1,13 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    distribution (0.8.0)
+
+PLATFORMS
+  arm64-darwin-20
+
+DEPENDENCIES
+  distribution
+
+BUNDLED WITH
+   2.2.22
