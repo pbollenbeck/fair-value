@@ -19,13 +19,13 @@ def forecast(start_price, sigma, number_of_days, drift)
   last_price
 end
 
-days = trading_days(Date.parse('2021-11-19')..Date.parse('2025-11-18'))
+days = trading_days(Date.parse('2022-03-31')..Date.parse('2026-03-30'))
 forecasts = []
 j = 0
 average = 0
 length = days.length
 5_000_000.times do |i|
-  last_price = forecast(29.2, 0.02292496765, length, -0.00005344090089)
+  last_price = forecast(28.4, 0.0229550535, length, -0.0001520501038)
   forecasts.push(last_price)
   average = (average * i + last_price) / (i+1)
 
