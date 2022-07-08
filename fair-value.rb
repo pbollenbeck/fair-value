@@ -1,6 +1,12 @@
 require 'date'
 require 'distribution'
 
+LAST_CLOSING_PRICE = 23.4
+FIRST_SIM_DATE= Date.parse('2022-06-30')
+LAST_SIM_DATE= Date.parse('2026-06-29')
+SIGMA = 0.02221308693
+DRIFT = -0.0003205969287
+
 def trading_day?(date)
   ![0,6].include?(date.wday)
 end
@@ -19,13 +25,13 @@ def forecast(start_price, sigma, number_of_days, drift)
   last_price
 end
 
-days = trading_days(Date.parse('2022-03-31')..Date.parse('2026-03-30'))
+days = trading_days(FIRST_SIM_DATE..LAST_SIM_DATE)
 forecasts = []
 j = 0
 average = 0
 length = days.length
 5_000_000.times do |i|
-  last_price = forecast(28.4, 0.0229550535, length, -0.0001520501038)
+  last_price = forecast(LAST_CLOSING_PRICE, SIGMA, length, DRIFT)
   forecasts.push(last_price)
   average = (average * i + last_price) / (i+1)
 
