@@ -1,11 +1,11 @@
 require 'date'
 require 'distribution'
 
-LAST_CLOSING_PRICE = 23.4
-FIRST_SIM_DATE= Date.parse('2022-06-30')
-LAST_SIM_DATE= Date.parse('2026-06-29')
-SIGMA = 0.02221308693
-DRIFT = -0.0003205969287
+LAST_CLOSING_PRICE = 12.5
+FIRST_SIM_DATE= Date.parse('2022-09-28')
+LAST_SIM_DATE= Date.parse('2026-09-27')
+SIGMA = 0.02263658742
+DRIFT = -0.0006030031535
 
 def trading_day?(date)
   ![0,6].include?(date.wday)
