@@ -6,6 +6,8 @@ FIRST_SIM_DATE= Date.parse('2023-03-30')
 LAST_SIM_DATE= Date.parse('2027-03-29')
 SIGMA = 0.022114372
 DRIFT = -0.0007733862929
+GRANT_ID = '2023-q1'
+OUTPUT_FILE_NAME = "output-" + GRANT_ID + ".txt"
 
 def trading_day?(date)
   ![0,6].include?(date.wday)
@@ -30,14 +32,19 @@ forecasts = []
 j = 0
 average = 0
 length = days.length
-5_000_000.times do |i|
-  last_price = forecast(LAST_CLOSING_PRICE, SIGMA, length, DRIFT)
-  forecasts.push(last_price)
-  average = (average * i + last_price) / (i+1)
+File.open(OUTPUT_FILE_NAME, 'w') do |f|
+  5_000_000.times do |i|
+    last_price = forecast(LAST_CLOSING_PRICE, SIGMA, length, DRIFT)
+    forecasts.push(last_price)
+    average = (average * i + last_price) / (i+1)
 
-  if (i+1) % 10_000 == 0
-    j += 1
-    puts j.to_s + " x 10k average: " + average.round(2).to_s
+    if (i+1) % 10_000 == 0
+      j += 1
+      s = j.to_s + " x 10k average: " + average.round(2).to_s + "\n"
+      print s
+      f.write s
+      f.flush
+    end
   end
 end
 
