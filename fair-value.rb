@@ -41,13 +41,15 @@ class MonteCarloSimulation
   end
 
   def forecast
-    last_price = @last_closing_price
-    @number_of_days.times do
-      last_price = (last_price * Math.exp(
-        @drift + @sigma * Distribution::Normal.p_value(rand())
-      )).round(3)
-    end
-    last_price
+    (1..@number_of_days).inject(@last_closing_price) { |last_price, _| next_price(last_price) }
+  end
+
+  def next_price(last_price)
+    (last_price * random_factor).round(3)
+  end
+
+  def random_factor
+      Math.exp(@drift + @sigma * Distribution::Normal.p_value(rand()))
   end
 end
 
