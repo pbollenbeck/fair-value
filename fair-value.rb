@@ -53,17 +53,19 @@ class MonteCarloSimulation
   end
 end
 
-forecasts = MonteCarloSimulation.new(LAST_CLOSING_PRICE, LAST_TRADING_DAY,
-                                     SIGMA, DRIFT).call
-
-File.open(OUTPUT_FILE_NAME, 'w') do |f|
-  j = 0
-  average = 0.0
-  forecasts.each_with_index do |forecast, i|
-    average = (average * i + forecast) / (i+1)
-    if (i+1) % 10_000 == 0
-      j += 1
-      f.write "#{j} x 10k average: #{average.round(2)}\n"
+def write_output(forecasts, file_name)
+  File.open(file_name, 'w') do |f|
+    sum = 0.0
+    forecasts.each_with_index do |forecast, i|
+      sum += forecast
+      if (i+1) % 10_000 == 0
+        average = (sum / (i+1)).round(2)
+        f.write "#{(i+1)/10000} x 10k average: #{average}\n"
+      end
     end
   end
 end
+
+forecasts = MonteCarloSimulation.new(LAST_CLOSING_PRICE, LAST_TRADING_DAY,
+                                     SIGMA, DRIFT).call
+write_output(forecasts, OUTPUT_FILE_NAME)
