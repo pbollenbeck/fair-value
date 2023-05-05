@@ -40,6 +40,6 @@ class MonteCarloSimulation
   end
 
   def random_factor
-      Math.exp(@drift + @sigma * Distribution::Normal.p_value(rand()))
+    Math.exp(@drift + @sigma * Distribution::Normal.p_value(rand()))
   end
 end
