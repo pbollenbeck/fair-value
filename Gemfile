@@ -1,6 +1,4 @@
 source 'https://rubygems.org'
 
-gem 'distribution'
-gem 'parallel'
-gem 'prime'
+gem 'opencl_ruby_ffi'
 gem 'ruby-progressbar'
